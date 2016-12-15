@@ -39,6 +39,8 @@ var UsersManager = function (options){
 
   this.users = new RestClient(options.baseUrl + '/users/:id', clientOptions);
 
+  this.enrollments = new RestClient(options.baseUrl + '/users/:id/enrollments', clientOptions);
+
   /**
    * Provides an abstraction layer for consuming the
    * {@link https://auth0.com/docs/api/v2#!/Users/delete_multifactor_by_provider
@@ -311,6 +313,21 @@ UsersManager.prototype.deleteAll = function (cb) {
   }
 
   return this.users.delete.apply(this.users, arguments);
+};
+
+
+UsersManager.prototype.getEnrollments = function (params, cb) {
+  params = params || {};
+
+  if (!params.id || typeof params.id !== 'string') {
+    throw new ArgumentError('The id parameter must be a valid user id');
+  }
+
+  if (cb && cb instanceof Function) {
+    return this.enrollments.get(params, cb);
+  }
+
+  return this.enrollments.get(params);
 };
 
 

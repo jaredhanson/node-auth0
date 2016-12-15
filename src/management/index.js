@@ -21,6 +21,7 @@ var TenantManager = require('./TenantManager');
 var JobsManager = require('./JobsManager');
 var TicketsManager = require('./TicketsManager');
 var LogsManager = require('./LogsManager');
+var GuardianManager = require('./GuardianManager');
 
 var BASE_URL_FORMAT = 'https://%s/api/v2';
 
@@ -177,6 +178,8 @@ var ManagementClient = function (options) {
    * @type {LogsManager}
    */
   this.logs = new LogsManager(managerOptions);
+  
+  this.guardian = new GuardianManager(managerOptions);
 };
 
 
